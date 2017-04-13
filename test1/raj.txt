@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+<head>
+<head>
+<style>
+table {
+    border-spacing: 41px;
+}
+
+h1 {
+	font-family: Monotype Corsiva, Times, serif;
+	font-size: 50px;
+}
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    opacity: 0.8;
+    overflow: hidden;
+    background-color: #333;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: green;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover:not(.active) {
+    background-color: #888;
+}
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    opacity: 0.8;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    color: green;
+    display: block;
+    transition: 0.3s
+}
+
+.sidenav a:hover, .offcanvas a:focus{
+    color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+.mySlides {display:none}
+
+.slideshow-container {
+  max-width: 500px;
+  position: relative;
+  margin: auto;
+}
+
+.dot {
+  height: 13px;
+  width: 13px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active {
+  background-color: #717171;
+}
+
+
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+div.gallery {
+    margin: 5px;
+    border: 1px solid #ccc;
+    float: left;
+    width: 250px;
+}
+
+div.gallery:hover {
+    border: 1px solid #777;
+}
+
+div.gallery img {
+    width: 100%;
+    height: 150px;
+}
+
+div.desc {
+    padding: 15px;
+    text-align: center;
+}
+
+
+.animate-bottom {
+  position: relative;
+  -webkit-animation-name: animatebottom;
+  -webkit-animation-duration: 1s;
+  animation-name: animatebottom;
+  animation-duration: 1s
+}
+
+@-webkit-keyframes animatebottom {
+  from { bottom:-100px; opacity:0 } 
+  to { bottom:0px; opacity:1 }
+}
+
+@keyframes animatebottom { 
+  from{ bottom:-100px; opacity:0 } 
+  to{ bottom:0; opacity:1 }
+}
+
+</style>
+<center><img src="index.png" align="middle"></center>
+<h1 align="center">ARTISTA ART GALLERY</h1>
+</head>
+<body background="background.jpg">
+<?php
+	session_start();
+	if(!isset($_SESSION['uname']))
+	{
+		header("location:login.php?msg=PLEASE LOGIN");
+	}
+?>
+<div class="animate-bottom">
+<ul>
+  <li>
+<div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+<a>Categories:-</a>  
+<a href="home.php">Home</a>
+  <a href="#">Services</a>
+  <a href="#">Clients</a>
+  <a href="#">Contact</a>
+</div>
+&nbsp;&nbsp;
+<span style="font-size:30px;color: white;cursor:pointer" onclick="openNav()">&#9776;&nbsp;&nbsp;&nbsp;</span>
+</li>
+  <li><a href="home.php">Home</a></li>
+  <li><a href="http://indianexpress.com/about/art-exhibition/">News</a></li>
+  <li><a href="Gallery.php">Gallery</a></li>  
+  <li><a href="About.php">About</a></li>
+</ul>
+<div class="slideshow-container">
+
+<?php
+for($i=1;$i<=6;$i++)
+{
+echo "<div class='mySlides fade'>";
+echo "<img src='$i.jpg' style='width:500px;height:500px;'>";
+echo "</div>";
+}
+?>
+</div>
+<br>
+
+<div style="text-align:center">
+  <span class="dot"></span> 
+  <span class="dot"></span> 
+  <span class="dot"></span> 
+  <span class="dot"></span>
+  <span class="dot"></span>
+  <span class="dot"></span>
+  <br>
+</div>
+
+<script>
+var slideIndex = 0;
+showSlides();
+
+function showSlides() {
+    var i;
+    var slides = document.getElementsByClassName("mySlides");
+    var dots = document.getElementsByClassName("dot");
+    for (i = 0; i < slides.length; i++) {
+       slides[i].style.display = "none";  
+    }
+    slideIndex++;
+    if (slideIndex> slides.length) {slideIndex = 1}    
+    for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slides[slideIndex-1].style.display = "block";  
+    dots[slideIndex-1].className += " active";
+    setTimeout(showSlides, 2000); // Change image every 2 seconds
+}
+</script>
+<table align="center">
+<tr>
+<td><div class='gallery'>
+  <a target='_blank' href='collage.php'>
+    <img src='1.jpg' alt='Collage' width='300' height='200'>
+  </a>
+  <div class='desc'>Collage</div>
+</div></td>
+<td><div class='gallery'>
+  <a target='_blank' href='painting.php'>
+    <img src='2.jpg' alt='Painting' width='300' height='200'>
+  </a>
+  <div class='desc'>Painting</div>
+</div></td>
+<td><div class='gallery'>
+  <a target='_blank' href='photography.php'>
+    <img src='3.jpg' alt='Photography' width='300' height='200'>
+  </a>
+  <div class='desc'>Photography</div>
+</div></td>
+</tr>
+<tr>
+<td><div class='gallery'>
+  <a target='_blank' href='sculpture.php'>
+    <img src='4.jpg' alt='Sculpture' width='300' height='200'>
+  </a>
+  <div class='desc'>Sculpture</div>
+</div></td>
+<td><div class='gallery'>
+  <a target='_blank' href='serigraph.php'>
+    <img src='5.jpg' alt='Serigraph' width='300' height='200'>
+  </a>
+  <div class='desc'>Serigraph</div>
+</div></td>
+<td><div class='gallery'>
+  <a target='_blank' href='#'>
+    <img src='6.jpg' alt='#' width='300' height='200'>
+  </a>
+  <div class='desc'>Add a description of the image here</div>
+</div></td>
+</tr>
+</table>
+<script>
+function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+}
+
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+}
+</script>
+
+
+</body>
+</html>
